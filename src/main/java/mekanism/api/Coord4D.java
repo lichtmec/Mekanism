@@ -1,5 +1,6 @@
 package mekanism.api;
 
+import gregapi.block.IBlockExtendedMetaData;
 import io.netty.buffer.ByteBuf;
 
 import java.util.ArrayList;
@@ -67,7 +68,18 @@ public class Coord4D
 	 */
 	public int getMetadata(IBlockAccess world)
 	{
-		return world.getBlockMetadata(xCoord, yCoord, zCoord);
+		Block block = getBlock(world);
+		int metadata;
+		if (getBlock(world) instanceof IBlockExtendedMetaData)
+		{
+			metadata = ((IBlockExtendedMetaData)block).getExtendedMetaData(world, this.xCoord, this.yCoord, this.zCoord);
+		}
+		else
+		{
+			metadata = world.getBlockMetadata(xCoord, yCoord, zCoord);
+		}
+
+		return metadata;
 	}
 
 	/**

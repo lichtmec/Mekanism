@@ -4,6 +4,7 @@ import java.util.BitSet;
 import java.util.HashMap;
 import java.util.Map;
 
+import gregapi.block.IBlockExtendedMetaData;
 import mekanism.api.BlockInfo;
 import mekanism.api.Coord4D;
 import mekanism.common.tile.TileEntityBoundingBlock;
@@ -75,7 +76,14 @@ public class ThreadMinerSearch extends Thread
 			}
 
 			info.block = tileEntity.getWorldObj().getBlock(x, y, z);
-			info.meta = tileEntity.getWorldObj().getBlockMetadata(x, y, z);
+			if (info.block instanceof IBlockExtendedMetaData)
+			{
+				info.meta = ((IBlockExtendedMetaData)info.block).getExtendedMetaData(tileEntity.getWorldObj(), x, y, z);
+			}
+			else
+			{
+				info.meta = tileEntity.getWorldObj().getBlockMetadata(x, y, z);
+			}
 
 			if(info.block != null && !tileEntity.getWorldObj().isAirBlock(x, y, z) && info.block.getBlockHardness(tileEntity.getWorldObj(), x, y, z) >= 0)
 			{

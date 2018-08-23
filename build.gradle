@@ -56,7 +56,7 @@ dependencies {
     compile "codechicken:CodeChickenCore:${config.minecraft_version}-${config.CCC_version}:dev"
 }
 
-version = "${config.minecraft_version}-${config.mod_version}." + (System.env.BUILD_NUMBER ?: "homebaked")
+version = "${config.minecraft_version}-${config.mod_version}-SupportGT6"
 archivesBaseName = "MekanismAll"
 libsDirName = "../output"
 distsDirName = "../output"
